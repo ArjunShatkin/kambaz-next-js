@@ -1,6 +1,9 @@
 "use client";
 
 export default function AssignmentEditor() {
+  const handleCancel = () => alert("Changes canceled!");
+  const handleSave = () => alert("Changes saved!");
+
   return (
     <div id="wd-assignments-editor" style={{ padding: "1rem", maxWidth: "600px" }}>
       {/* Assignment Name */}
@@ -15,7 +18,7 @@ The assignment is available online. Submit a link to the landing page of the pro
       </textarea>
       <br /><br />
 
-      {/* Points */}
+      {/* Points and other fields */}
       <table>
         <tbody>
           <tr>
@@ -27,7 +30,6 @@ The assignment is available online. Submit a link to the landing page of the pro
             </td>
           </tr>
 
-          {/* Group */}
           <tr>
             <td align="right">
               <label htmlFor="wd-group">Group</label>
@@ -37,7 +39,6 @@ The assignment is available online. Submit a link to the landing page of the pro
             </td>
           </tr>
 
-          {/* Display Grade As */}
           <tr>
             <td align="right">
               <label htmlFor="wd-display-grade-as">Display Grade As</label>
@@ -50,7 +51,6 @@ The assignment is available online. Submit a link to the landing page of the pro
             </td>
           </tr>
 
-          {/* Submission Type */}
           <tr>
             <td align="right">
               <label htmlFor="wd-submission-type">Submission Type</label>
@@ -63,7 +63,6 @@ The assignment is available online. Submit a link to the landing page of the pro
             </td>
           </tr>
 
-          {/* Text Entry */}
           <tr>
             <td align="right">
               <label htmlFor="wd-text-entry">Text Entry</label>
@@ -73,7 +72,6 @@ The assignment is available online. Submit a link to the landing page of the pro
             </td>
           </tr>
 
-          {/* Website URL */}
           <tr>
             <td align="right">
               <label htmlFor="wd-website-url">Website URL</label>
@@ -83,7 +81,6 @@ The assignment is available online. Submit a link to the landing page of the pro
             </td>
           </tr>
 
-          {/* Media Recordings */}
           <tr>
             <td align="right">
               <label htmlFor="wd-media-recordings">Media Recordings</label>
@@ -93,7 +90,6 @@ The assignment is available online. Submit a link to the landing page of the pro
             </td>
           </tr>
 
-          {/* Student Annotation */}
           <tr>
             <td align="right">
               <label htmlFor="wd-student-annotation">Student Annotation</label>
@@ -103,7 +99,6 @@ The assignment is available online. Submit a link to the landing page of the pro
             </td>
           </tr>
 
-          {/* File Upload */}
           <tr>
             <td align="right">
               <label htmlFor="wd-file-upload">File Upload</label>
@@ -113,7 +108,6 @@ The assignment is available online. Submit a link to the landing page of the pro
             </td>
           </tr>
 
-          {/* Assign To */}
           <tr>
             <td align="right">
               <label htmlFor="wd-assign-to">Assign To</label>
@@ -123,7 +117,6 @@ The assignment is available online. Submit a link to the landing page of the pro
             </td>
           </tr>
 
-          {/* Due Date */}
           <tr>
             <td align="right">
               <label htmlFor="wd-due-date">Due Date</label>
@@ -133,7 +126,6 @@ The assignment is available online. Submit a link to the landing page of the pro
             </td>
           </tr>
 
-          {/* Available From */}
           <tr>
             <td align="right">
               <label htmlFor="wd-available-from">Available From</label>
@@ -143,7 +135,6 @@ The assignment is available online. Submit a link to the landing page of the pro
             </td>
           </tr>
 
-          {/* Available Until */}
           <tr>
             <td align="right">
               <label htmlFor="wd-available-until">Available Until</label>
@@ -154,6 +145,14 @@ The assignment is available online. Submit a link to the landing page of the pro
           </tr>
         </tbody>
       </table>
+
+      {/* Buttons at the bottom */}
+      <div style={{ marginTop: "1rem" }}>
+        <button onClick={handleCancel} style={{ marginRight: "1rem" }}>
+          Cancel
+        </button>
+        <button onClick={handleSave}>Save</button>
+      </div>
     </div>
   );
 }
