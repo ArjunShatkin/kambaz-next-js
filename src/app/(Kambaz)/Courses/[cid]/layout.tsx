@@ -1,15 +1,12 @@
-import { ReactNode } from "react";
+// src/app/(Kambaz)/Courses/[cid]/layout.tsx
 import CourseNavigation from "./Navigation";
 
 interface CoursesLayoutProps {
-  children: ReactNode;
+  children: React.ReactNode;
   params: { cid: string };
 }
 
-export default function CoursesLayout({
-  children,
-  params,
-}: Readonly<CoursesLayoutProps>) {
+export default function CoursesLayout({ children, params }: CoursesLayoutProps) {
   const { cid } = params;
 
   return (
@@ -19,7 +16,7 @@ export default function CoursesLayout({
       <table>
         <tbody>
           <tr>
-            <td valign="top" width="200">
+            <td valign="top" width={200}>
               <CourseNavigation />
             </td>
             <td valign="top" width="100%">
