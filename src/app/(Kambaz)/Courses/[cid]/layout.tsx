@@ -1,9 +1,11 @@
-// src/app/(Kambaz)/Courses/[cid]/layout.tsx
+import { ReactNode } from "react";
 import CourseNavigation from "./Navigation";
 
 interface CoursesLayoutProps {
-  children: React.ReactNode;
-  params: { cid: string };
+  children: ReactNode;
+  params: {
+    cid: string;
+  };
 }
 
 export default function CoursesLayout({ children, params }: CoursesLayoutProps) {
