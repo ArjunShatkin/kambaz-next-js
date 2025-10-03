@@ -73,17 +73,18 @@ export default function Lab1() {
           <li>Serve hot with rice or naan.</li>
         </ol>
 
-        <h5>Unordered List Tag</h5>
-        <p>My favorite books:</p>
+        <h5>{`Unordered List Tag`}</h5>
+        <p>{`My favorite books:`}</p>
         <ul>
-          <li>Dune</li>
-          <li>Lord of the Rings</li>
-          <li>Ender&apos;s Game</li>
-          <li>Red Mars</li>
-          <li>The Forever War</li>
+          <li>{`Dune`}</li>
+          <li>{`Lord of the Rings`}</li>
+          <li>{`Ender's Game`}</li>
+          <li>{`Red Mars`}</li>
+          <li>{`The Forever War`}</li>
         </ul>
       </div>
 
+       
       <div id="wd-tables">
         <h4>Table Tag</h4>
         <table border={1} width="100%">
