@@ -6,7 +6,10 @@ export default function TOC() {
   const router = useRouter();
 
   return (
-    <Nav variant="pills" activeKey={router.pathname}>
+    <Nav
+      variant="pills"
+      className="justify-content-center mt-3 mb-4 gap-2"
+    >
       <NavItem>
         <Link href="/Labs" passHref legacyBehavior>
           <NavLink active={router.pathname === "/Labs"}>Labs</NavLink>
@@ -38,10 +41,11 @@ export default function TOC() {
       </NavItem>
 
       <NavItem>
-        <NavLink href="https://github.com/jannunzi" target="_blank">
+        <NavLink href="https://github.com/ArjunShatkin/kambaz-next-js" target="_blank">
           My GitHub
         </NavLink>
       </NavItem>
     </Nav>
   );
 }
+

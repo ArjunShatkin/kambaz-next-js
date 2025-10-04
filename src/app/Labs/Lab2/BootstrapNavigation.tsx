@@ -1,4 +1,4 @@
-import { Nav, NavItem, NavLink } from "react-bootstrap";
+import { Nav, NavItem, NavLink, CardBody, Button, CardText, CardTitle, Card,CardImg } from "react-bootstrap";
 
 export function BootstrapNavigation() {
   return (
@@ -20,6 +20,22 @@ export function BootstrapNavigation() {
           </NavLink>
         </NavItem>
       </Nav>
+
+      <div id="wd-css-navigating-with-cards">
+  <h2>Cards</h2>
+  <Card style={{ width: "18rem" }}>
+  <CardImg variant="top" src="/images/stacked.jpg" />
+
+    <CardBody>
+      <CardTitle>Stacking Starship</CardTitle>
+      <CardText>
+        Stacking the most powerful rocket in history. Mars or bust!
+      </CardText>
+      <Button variant="primary">Boldly Go</Button>
+    </CardBody>
+  </Card>
+</div>
+
     </div>
   );
 }
