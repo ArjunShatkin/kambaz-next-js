@@ -1,5 +1,6 @@
-// app/(Kambaz)/Account/Profile/page.tsx
+
 "use client";
+
 import { Form, Button } from "react-bootstrap";
 import Link from "next/link";
 
@@ -20,7 +21,10 @@ export default function Profile() {
 
           <Form.Group className="mb-3" controlId="wd-profile-email">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" defaultValue="student@northeastern.edu" />
+            <Form.Control
+              type="email"
+              defaultValue="student@northeastern.edu"
+            />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="wd-profile-password">
@@ -28,16 +32,19 @@ export default function Profile() {
             <Form.Control type="password" defaultValue="••••••••" />
           </Form.Group>
 
-          <Button variant="primary" className="w-100 mb-2">
+          <Button variant="primary" className="w-100 mb-2" type="submit">
             Save Changes
           </Button>
 
-          <Button variant="outline-danger" className="w-100" as={Link} href="/Account/Signin">
-            Sign Out
-          </Button>
+          <Link href="/Account/Signin" passHref legacyBehavior>
+            <Button variant="outline-danger" className="w-100">
+              Sign Out
+            </Button>
+          </Link>
         </Form>
       </div>
     </div>
   );
 }
+
 
