@@ -25,21 +25,21 @@ export default function Signup() {
             <Form.Control type="password" placeholder="Confirm Password" />
           </Form.Group>
 
-          <Button
-            id="wd-create-account-btn"
-            variant="success"
-            className="w-100 mb-3"
-            as={Link}
-            href="/Account/Profile"
-          >
-            Create Account
-          </Button>
+          
+          <Link href="/Account/Profile" passHref legacyBehavior>
+            <Button id="wd-create-account-btn" variant="success" className="w-100 mb-3">
+              Create Account
+            </Button>
+          </Link>
 
           <div className="text-center">
-            <Link href="/Account/Signin">Already have an account? Sign in</Link>
+            <Link id="wd-signin-link" href="/Account/Signin">
+              Already have an account? Sign in
+            </Link>
           </div>
         </Form>
       </div>
     </div>
   );
 }
+

@@ -1,9 +1,16 @@
 // app/(Kambaz)/Account/Signin/page.tsx
 "use client";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Form, Button } from "react-bootstrap";
 
 export default function Signin() {
+  const router = useRouter();
+
+  const handleSignIn = () => {
+    // TODO: Add authentication logic here
+    router.push("/Account/Profile");
+  };
+
   return (
     <div
       id="wd-signin-screen"
@@ -21,20 +28,20 @@ export default function Signin() {
             <Form.Control type="password" placeholder="Password" />
           </Form.Group>
 
+          
           <Button
             id="wd-signin-btn"
             variant="primary"
             className="w-100 mb-3"
-            as={Link}
-            href="/Account/Profile"
+            onClick={handleSignIn}
           >
             Sign In
           </Button>
 
           <div className="text-center">
-            <Link id="wd-signup-link" href="/Account/Signup">
+            <a id="wd-signup-link" href="/Account/Signup">
               Don’t have an account? Sign up
-            </Link>
+            </a>
           </div>
         </Form>
       </div>
