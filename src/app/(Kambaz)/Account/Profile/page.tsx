@@ -1,63 +1,43 @@
+// app/(Kambaz)/Account/Profile/page.tsx
+"use client";
+import { Form, Button } from "react-bootstrap";
 import Link from "next/link";
 
 export default function Profile() {
   return (
-    <div id="wd-profile-screen">
-      <h3>Profile</h3>
+    <div
+      id="wd-profile-screen"
+      className="d-flex align-items-center justify-content-center vh-100 bg-light"
+    >
+      <div className="card shadow p-4" style={{ width: "400px" }}>
+        <h1 className="text-center mb-4">Profile</h1>
 
-      <input
-        defaultValue="alice"
-        placeholder="username"
-        className="wd-username"
-      />
-      <br />
+        <Form>
+          <Form.Group className="mb-3" controlId="wd-profile-username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control type="text" defaultValue="student123" />
+          </Form.Group>
 
-      <input
-        defaultValue="123"
-        placeholder="password"
-        type="password"
-        className="wd-password"
-      />
-      <br />
+          <Form.Group className="mb-3" controlId="wd-profile-email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control type="email" defaultValue="student@northeastern.edu" />
+          </Form.Group>
 
-      <input
-        defaultValue="Alice"
-        placeholder="First Name"
-        id="wd-firstname"
-      />
-      <br />
+          <Form.Group className="mb-3" controlId="wd-profile-password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" defaultValue="••••••••" />
+          </Form.Group>
 
-      <input
-        defaultValue="Wonderland"
-        placeholder="Last Name"
-        id="wd-lastname"
-      />
-      <br />
+          <Button variant="primary" className="w-100 mb-2">
+            Save Changes
+          </Button>
 
-      <input
-        defaultValue="2000-01-01"
-        type="date"
-        id="wd-dob"
-      />
-      <br />
-
-      <input
-        defaultValue="alice@wonderland"
-        type="email"
-        id="wd-email"
-      />
-      <br />
-
-      <select defaultValue="FACULTY" id="wd-role">
-        <option value="USER">User</option>
-        <option value="ADMIN">Admin</option>
-        <option value="FACULTY">Faculty</option>
-        <option value="STUDENT">Student</option>
-      </select>
-      <br />
-
-      {/* ✅ Sign out goes back to Signin */}
-      <Link href="/Account/Signin">Sign out</Link>
+          <Button variant="outline-danger" className="w-100" as={Link} href="/Account/Signin">
+            Sign Out
+          </Button>
+        </Form>
+      </div>
     </div>
   );
 }
+

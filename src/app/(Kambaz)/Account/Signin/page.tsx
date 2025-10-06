@@ -1,44 +1,43 @@
+// app/(Kambaz)/Account/Signin/page.tsx
+"use client";
 import Link from "next/link";
+import { Form, Button } from "react-bootstrap";
 
 export default function Signin() {
   return (
-    <div id="wd-signin-screen" style={{ padding: "2rem" }}>
-      {/* Top header */}
-      <h4 style={{ textAlign: "center", marginBottom: "1rem" }}>
-        This website was designed by Arjun Shatkin for CS4550
-      </h4>
+    <div
+      id="wd-signin-screen"
+      className="d-flex align-items-center justify-content-center vh-100 bg-light"
+    >
+      <div className="card shadow p-4" style={{ width: "350px" }}>
+        <h1 className="text-center mb-4">Sign In</h1>
 
-      {/* GitHub link */}
-      <p style={{ textAlign: "center", marginBottom: "2rem" }}>
-        <a
-          href="https://github.com/ArjunShatkin/kambaz-next-js"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: "#0366d6", textDecoration: "underline" }}
-        >
-          View Project on GitHub
-        </a>
-      </p>
+        <Form>
+          <Form.Group className="mb-3" controlId="wd-username">
+            <Form.Control type="text" placeholder="Username" />
+          </Form.Group>
 
-      <h3>Sign in</h3>
-      <input className="wd-username" placeholder="username" /> <br />
-      <input
-        className="wd-password"
-        placeholder="password"
-        type="password"
-      />{" "}
-      <br />
+          <Form.Group className="mb-3" controlId="wd-password">
+            <Form.Control type="password" placeholder="Password" />
+          </Form.Group>
 
-      {/* Navigate to Dashboard after signing in */}
-      <Link id="wd-signin-btn" href="/Dashboard">
-        Sign in
-      </Link>{" "}
-      <br />
+          <Button
+            id="wd-signin-btn"
+            variant="primary"
+            className="w-100 mb-3"
+            as={Link}
+            href="/Account/Profile"
+          >
+            Sign In
+          </Button>
 
-      {/* Navigate to Signup screen */}
-      <Link id="wd-signup-link" href="Signup">
-        Sign up
-      </Link>
+          <div className="text-center">
+            <Link id="wd-signup-link" href="/Account/Signup">
+              Don’t have an account? Sign up
+            </Link>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 }
