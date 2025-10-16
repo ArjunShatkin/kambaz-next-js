@@ -18,7 +18,7 @@ export default function AddingAndRemovingToFromArrays() {
     <div id="wd-adding-removing-from-arrays">
       <h4>Add/remove to/from arrays</h4>
       <p>numberArray1: {numberArray1.join(", ")}</p>
-      <p>stringArray1: {stringArray1.join(", ")}</p>
+      <p>stringArray1: {stringArray1}</p>
       <p>Todo list:</p>
       <ol>{todoArray}</ol>
       <hr />
