@@ -7,6 +7,14 @@ export default function AssignmentEditor() {
   const [assignTo, setAssignTo] = useState<string[]>([]);
   const [currentEntry, setCurrentEntry] = useState("");
 
+  // Default dates
+  const today = new Date();
+  const formatDate = (d: Date) => d.toISOString().split("T")[0];
+
+  const defaultAvailableFrom = formatDate(today);
+  const defaultDueDate = formatDate(new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)); // +7 days
+  const defaultAvailableUntil = formatDate(new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000)); // +14 days
+
   const handleAddAssignTo = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && currentEntry.trim() !== "") {
       e.preventDefault();
@@ -115,17 +123,17 @@ export default function AssignmentEditor() {
 
         <div className="mb-3">
           <Form.Label htmlFor="wd-due-date">Due Date</Form.Label>
-          <Form.Control id="wd-due-date" type="date" />
+          <Form.Control id="wd-due-date" type="date" defaultValue={defaultDueDate} />
         </div>
 
         <div className="mb-3">
           <Form.Label htmlFor="wd-available-from">Available From</Form.Label>
-          <Form.Control id="wd-available-from" type="date" />
+          <Form.Control id="wd-available-from" type="date" defaultValue={defaultAvailableFrom} />
         </div>
 
         <div className="mb-3">
           <Form.Label htmlFor="wd-available-until">Available Until</Form.Label>
-          <Form.Control id="wd-available-until" type="date" />
+          <Form.Control id="wd-available-until" type="date" defaultValue={defaultAvailableUntil} />
         </div>
       </div>
 

@@ -1,33 +1,58 @@
+"use client";
+
+import { Nav, NavItem, NavLink } from "react-bootstrap";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function TOC() {
+  const pathname = usePathname();
+
   return (
-    <ul>
-      <li>
-        <Link href="/Labs" id="toc-home-link">
-          Home
-        </Link>
-      </li>
-      <li>
-        <Link href="/Labs/Lab1" id="toc-lab1-link">
+    <Nav variant="pills" id="wd-toc">
+      <NavItem>
+        <NavLink
+          as={Link}
+          href="/Labs/Lab1"
+          id="wd-a1"
+          active={pathname?.includes("Lab1")}
+        >
           Lab 1
-        </Link>
-      </li>
-      <li>
-        <Link href="/Labs/Lab2" id="toc-lab2-link">
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink
+          as={Link}
+          href="/Labs/Lab2"
+          id="wd-a2"
+          active={pathname?.includes("Lab2")}
+        >
           Lab 2
-        </Link>
-      </li>
-      <li>
-        <Link href="/Labs/Lab3" id="toc-lab3-link">
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink
+          as={Link}
+          href="/Labs/Lab3"
+          id="wd-a3"
+          active={pathname?.includes("Lab3")}
+        >
           Lab 3
-        </Link>
-      </li>
-      <li>
-  <Link href="/" id="kambaz-link">
-    Kambaz
-  </Link>
-</li>
-    </ul>
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink as={Link} href="/Kambaz" id="wd-kambaz-link" active={pathname?.includes("Kambaz")}>
+          Kambaz
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink
+          href="https://github.com/jannunzi"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          My GitHub
+        </NavLink>
+      </NavItem>
+    </Nav>
   );
 }
