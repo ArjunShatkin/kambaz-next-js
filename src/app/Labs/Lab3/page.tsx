@@ -30,7 +30,6 @@ import VariableTypes from "./VariableTypes";
 import Add from "./Add";
 import Square from "./Square";
 import Highlight from "./Highlight";
-import AddPathParameters from "./AddPathParameters";
 import Link from "next/link";
 
 export default function Lab3() {
