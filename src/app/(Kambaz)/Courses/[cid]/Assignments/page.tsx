@@ -1,34 +1,48 @@
 "use client";
 
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FaBook, FaSearch } from "react-icons/fa";
 import { IoEllipsisVertical } from "react-icons/io5";
 
+type Assignment = {
+  _id: string;
+  title: string;
+  course: string; // course _id
+  line1: string;
+  line2: string;
+};
+
 export default function Assignments() {
-  const assignments = [
-    {
-      id: "123",
-      title: "A1 - ENV + HTML",
-      line1: "Multiple Modules | Not Available Until May 1 at 12:00 p.m.",
-      line2: "Due Date May 7 at 11:59 p.m. | 100 pts",
-    },
-    {
-      id: "124",
-      title: "A2 - CSS + Bootstrap",
-      line1: "Multiple Modules | Not Available Until May 8 at 12:00 p.m.",
-      line2: "Due Date May 14 at 11:59 p.m. | 100 pts",
-    },
-    {
-      id: "125",
-      title: "A3 - Javascript + React",
-      line1: "Multiple Modules | Not Available Until May 15 at 12:00 p.m.",
-      line2: "Due Date May 21 at 11:59 p.m. | 100 pts",
-    },
-  ];
+  const params = useParams();
+  const cid = Array.isArray(params.cid) ? params.cid[0] : params.cid; // ensure string
+  const [assignments, setAssignments] = useState<Assignment[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const db = await import("../../../Database/assignments.json");
+        const allAssignments: Assignment[] = db.default || db;
+
+        // Filter assignments for current course
+        const filtered = allAssignments.filter((a) => a.course === cid);
+        setAssignments(filtered);
+      } catch (err) {
+        console.error("Failed to load assignments:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    if (cid) loadData();
+  }, [cid]);
 
   const handleAddGroup = () => alert("Add Group clicked!");
   const handleAddAssignment = () => alert("Add Assignment clicked!");
-  const handleAssignmentClick = (title: string) =>
-    alert(`${title} clicked!`);
+  const handleAssignmentClick = (title: string) => alert(`${title} clicked!`);
+
+  if (loading) return <p>Loading assignments...</p>;
+  if (!assignments.length) return <p>No assignments found for this course.</p>;
 
   return (
     <div id="wd-assignments" className="container mt-3">
@@ -44,10 +58,7 @@ export default function Assignments() {
             placeholder="Search for Assignments"
           />
         </div>
-        <button
-          className="btn btn-secondary me-2"
-          onClick={handleAddGroup}
-        >
+        <button className="btn btn-secondary me-2" onClick={handleAddGroup}>
           + Group
         </button>
         <button className="btn btn-danger" onClick={handleAddAssignment}>
@@ -60,7 +71,7 @@ export default function Assignments() {
       <ul className="list-unstyled">
         {assignments.map((assignment) => (
           <li
-            key={assignment.id}
+            key={assignment._id}
             className="d-flex align-items-center mb-3 border border-secondary rounded"
             style={{ borderLeft: "5px solid green" }}
           >
@@ -72,7 +83,7 @@ export default function Assignments() {
             {/* Assignment info */}
             <div className="flex-fill py-2">
               <a
-                href={`/Courses/1234/Assignments/${assignment.id}`}
+                href={`/Courses/${assignment.course}/Assignments/${assignment._id}`}
                 className="fw-bold text-decoration-none text-dark"
                 onClick={() => handleAssignmentClick(assignment.title)}
               >
@@ -94,5 +105,3 @@ export default function Assignments() {
     </div>
   );
 }
-
-
