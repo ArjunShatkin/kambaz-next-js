@@ -179,98 +179,94 @@ export default function Lab1() {
       </div>
 
       {/* --- Form Section --- */}
+      <div id="wd-forms">
+        <h4>Form Elements</h4>
+        <form>
+          <h5>Text Fields</h5>
+          <label htmlFor="username">Username:</label>
+          <input placeholder="jdoe" id="username" /> <br />
 
-<div id="wd-forms">
-  <h4>Form Elements</h4>
-  <form>
-    <h5>Text Fields</h5>
-    <label htmlFor="username">Username:</label>
-    <input placeholder="jdoe" id="username" /> <br />
+          <label htmlFor="password">Password:</label>
+          <input type="password" defaultValue="123@#$asd" id="password" /> <br />
 
-    <label htmlFor="password">Password:</label>
-    <input type="password" defaultValue="123@#$asd" id="password" /> <br />
+          <label htmlFor="firstname">First Name:</label>
+          <input type="text" placeholder="Alice" id="firstname" /> <br />
 
-    <label htmlFor="firstname">First Name:</label>
-    <input type="text" placeholder="Alice" id="firstname" /> <br />
+          <label htmlFor="lastname">Last Name:</label>
+          <input type="text" placeholder="Wonderland" id="lastname" /> <br />
+        </form>
 
-    <label htmlFor="lastname">Last Name:</label>
-    <input type="text" placeholder="Wonderland" id="lastname" /> <br />
-  </form>
+        <h5>Text Area</h5>
+        <textarea
+          id="wd-textarea"
+          cols={30}
+          rows={10}
+          defaultValue={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`}
+        />
 
-  <h5>Text Area</h5>
-  <textarea
-    id="wd-textarea"
-    cols={30}
-    rows={10}
-    defaultValue={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`}
-  />
+        <h5>Radio Buttons</h5>
+        <input type="radio" id="radio1" name="genre" />
+        <label htmlFor="radio1">Comedy</label>
+        <br />
+        <input type="radio" id="radio2" name="genre" />
+        <label htmlFor="radio2">Drama</label>
+        <br />
+        <input type="radio" id="radio3" name="genre" />
+        <label htmlFor="radio3">Sci-Fi</label>
+        <br />
+        <input type="radio" id="radio4" name="genre" />
+        <label htmlFor="radio4">Fantasy</label>
+        <br />
 
-  <h5>Radio Buttons</h5>
-  <input type="radio" id="radio1" name="genre" />
-  <label htmlFor="radio1">Comedy</label>
-  <br />
-  <input type="radio" id="radio2" name="genre" />
-  <label htmlFor="radio2">Drama</label>
-  <br />
-  <input type="radio" id="radio3" name="genre" />
-  <label htmlFor="radio3">Sci-Fi</label>
-  <br />
-  <input type="radio" id="radio4" name="genre" />
-  <label htmlFor="radio4">Fantasy</label>
-  <br />
+        <h5>Checkboxes</h5>
+        <input type="checkbox" id="chk1" />
+        <label htmlFor="chk1">Comedy</label>
+        <br />
+        <input type="checkbox" id="chk2" />
+        <label htmlFor="chk2">Drama</label>
+        <br />
+        <input type="checkbox" id="chk3" />
+        <label htmlFor="chk3">Sci-Fi</label>
+        <br />
+        <input type="checkbox" id="chk4" />
+        <label htmlFor="chk4">Fantasy</label>
+        <br />
 
-  <h5>Checkboxes</h5>
-  <input type="checkbox" id="chk1" />
-  <label htmlFor="chk1">Comedy</label>
-  <br />
-  <input type="checkbox" id="chk2" />
-  <label htmlFor="chk2">Drama</label>
-  <br />
-  <input type="checkbox" id="chk3" />
-  <label htmlFor="chk3">Sci-Fi</label>
-  <br />
-  <input type="checkbox" id="chk4" />
-  <label htmlFor="chk4">Fantasy</label>
-  <br />
+        <h5>Dropdowns</h5>
+        <label htmlFor="select-one">Select one:</label>
+        <select id="select-one" defaultValue="SCIFI">
+          <option value="COMEDY">Comedy</option>
+          <option value="DRAMA">Drama</option>
+          <option value="SCIFI">Science Fiction</option>
+          <option value="FANTASY">Fantasy</option>
+        </select>
+        <br />
+        <label htmlFor="select-many">Select many:</label>
+        <select id="select-many" multiple size={4}>
+          <option value="COMEDY">Comedy</option>
+          <option value="DRAMA">Drama</option>
+          <option value="SCIFI">Science Fiction</option>
+          <option value="FANTASY">Fantasy</option>
+        </select>
 
-  <h5>Dropdowns</h5>
-  <label htmlFor="select-one">Select one:</label>
-  <select id="select-one" defaultValue="SCIFI">
-    <option value="COMEDY">Comedy</option>
-    <option value="DRAMA">Drama</option>
-    <option value="SCIFI">Science Fiction</option>
-    <option value="FANTASY">Fantasy</option>
-  </select>
-  <br />
-  <label htmlFor="select-many">Select many:</label>
-  <select id="select-many" multiple size={4}>
-    <option value="COMEDY">Comedy</option>
-    <option value="DRAMA">Drama</option>
-    <option value="SCIFI">Science Fiction</option>
-    <option value="FANTASY">Fantasy</option>
-  </select>
+        <h5>Email</h5>
+        <label htmlFor="email">Email:</label>
+        <input type="email" id="email" placeholder="example@email.com" /> <br />
 
-  <h5>Email</h5>
-  <label htmlFor="email">Email:</label>
-  <input type="email" id="email" placeholder="example@email.com" /> <br />
+        <h5>Salary</h5>
+        <label htmlFor="salary">Salary:</label>
+        <input type="number" id="salary" placeholder="50000" /> <br />
 
-  <h5>Salary</h5>
-  <label htmlFor="salary">Salary:</label>
-  <input type="number" id="salary" placeholder="50000" /> <br />
+        <h5>Rating Slider</h5>
+        <label htmlFor="rating">Rating:</label>
+        <input type="range" id="rating" min="0" max="10" defaultValue="5" /> <br />
+        <span>0</span> - <span>10</span>
+        <br />
 
-  <h5>Rating Slider</h5>
-  <label htmlFor="rating">Rating:</label>
-  <input type="range" id="rating" min="0" max="10" defaultValue="5" /> <br />
-  <span>0</span> - <span>10</span>
-  <br />
-
-  <h5>Date of Birth (DOB) Date Picker</h5>
-  <label htmlFor="dob">Birthday:</label>
-  <input type="date" id="dob" /> <br />
-
-</div>
-
-
+        <h5>Date of Birth (DOB) Date Picker</h5>
+        <label htmlFor="dob">Birthday:</label>
+        <input type="date" id="dob" /> <br />
+      </div>
 
       <h4>Anchor Tag</h4>
       <p>
@@ -280,8 +276,6 @@ export default function Lab1() {
         </a>{" "}
         to get dummy text.
       </p>
-
-      
     </div>
   );
 }
