@@ -46,7 +46,7 @@ export default function TOC() {
       </NavItem>
       <NavItem>
         <NavLink
-          href="https://github.com/jannunzi"
+          href="https://github.com/ArjunShatkin/kambaz-next-js"
           target="_blank"
           rel="noopener noreferrer"
         >
