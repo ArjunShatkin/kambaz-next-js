@@ -19,6 +19,7 @@ export default function TOC() {
           Lab 1
         </NavLink>
       </NavItem>
+
       <NavItem>
         <NavLink
           as={Link}
@@ -29,6 +30,7 @@ export default function TOC() {
           Lab 2
         </NavLink>
       </NavItem>
+
       <NavItem>
         <NavLink
           as={Link}
@@ -39,11 +41,29 @@ export default function TOC() {
           Lab 3
         </NavLink>
       </NavItem>
+
       <NavItem>
-        <NavLink as={Link} href="/Kambaz" id="wd-kambaz-link" active={pathname?.includes("Kambaz")}>
+        <NavLink
+          as={Link}
+          href="/Labs/Lab4"
+          id="wd-a4"
+          active={pathname?.includes("Lab4")}
+        >
+          Lab 4
+        </NavLink>
+      </NavItem>
+
+      <NavItem>
+        <NavLink
+          as={Link}
+          href="/Kambaz"
+          id="wd-kambaz-link"
+          active={pathname?.includes("Kambaz")}
+        >
           Kambaz
         </NavLink>
       </NavItem>
+
       <NavItem>
         <NavLink
           href="https://github.com/ArjunShatkin/kambaz-next-js"
@@ -56,3 +76,4 @@ export default function TOC() {
     </Nav>
   );
 }
+
