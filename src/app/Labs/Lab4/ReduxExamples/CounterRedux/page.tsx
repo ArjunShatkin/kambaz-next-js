@@ -2,7 +2,7 @@
 
 import { Provider } from "react-redux";
 import { store } from "@/app/Labs/store";
-import CounterReduxComponent from "./counterreduxcomponent"; // matches the exported name
+import CounterReduxComponent from "./CounterReduxComponent";
 
 export default function CounterReduxPage() {
   return (
