@@ -4,7 +4,7 @@ import React from "react";
 import { Provider, useSelector } from "react-redux";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { store, RootState } from "../../store";
-import HelloRedux from "./HelloRedux/page";
+import HelloRedux from "./HelloRedux/HelloRedux";
 import CounterReduxComponent from "./CounterRedux/page";
 import AddRedux from "./AddRedux/AddRedux";
 
