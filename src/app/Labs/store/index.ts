@@ -1,9 +1,10 @@
 "use client";
 
-
 import { configureStore } from "@reduxjs/toolkit";
+
+// import slices
 import helloReducer from "../Lab4/ReduxExamples/HelloRedux/helloReducer";
-import counterReducer from "../Lab4/ReduxExamples/CounterRedux/counterReducer"
+import counterReducer from "../Lab4/ReduxExamples/CounterRedux/counterReducer";
 import addReducer from "../Lab4/ReduxExamples/AddRedux/addReducer";
 import todosReducer from "../Lab4/ReduxExamples/todos/todosReducer";
 
@@ -11,7 +12,7 @@ export const store = configureStore({
   reducer: {
     hello: helloReducer,
     counter: counterReducer,
-    add:addReducer,
+    add: addReducer,
     todos: todosReducer,
   },
 });
