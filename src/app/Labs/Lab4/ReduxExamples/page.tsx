@@ -3,24 +3,26 @@
 import React from "react";
 import { Provider, useSelector } from "react-redux";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
-import { store, RootState } from "../store"; // adjust the path to your store
-import TodoList from "../Lab4/ReduxExamples/todos/TodoList";
+import { store, RootState } from "../../store";
+import HelloRedux from "./HelloRedux/page";
+import CounterRedux from "./CounterRedux/page";
+import AddRedux from "./AddRedux/page";
 
-export default function Lab3() {
+export default function ReduxExamples() {
   return (
     <Provider store={store}>
-      <Lab3Content />
+      <ReduxExamplesContent />
     </Provider>
   );
 }
 
-// Separate component to use Redux hooks inside Provider
-function Lab3Content() {
+// Separate component to use useSelector inside Provider
+function ReduxExamplesContent() {
   const todos = useSelector((state: RootState) => state.todos.todos);
 
   return (
-    <div id="wd-lab3">
-      <h3>Lab 3</h3>
+    <div className="p-4">
+      <h2>Redux Examples</h2>
 
       {/* Display Redux todos */}
       <h4>Todos from Redux Store</h4>
@@ -30,8 +32,11 @@ function Lab3Content() {
         ))}
       </ListGroup>
 
-      {/* Existing Lab3 components */}
-      <TodoList />
+      {/* Existing Redux example components */}
+      <HelloRedux />
+      <CounterRedux />
+      <AddRedux />
+      <h2> Todo List in Lab 3 </h2>
     </div>
   );
 }
