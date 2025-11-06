@@ -4,10 +4,11 @@ import { Provider } from "react-redux";
 import { store } from "@/app/Labs/store";
 import CounterReduxComponent from "./CounterReduxComponent";
 
-export default function CounterReduxPage() {
+export default function AddReduxPage() {
   return (
     <Provider store={store}>
       <CounterReduxComponent />
     </Provider>
   );
 }
+

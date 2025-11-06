@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "./counterReducer";
 import type { RootState, AppDispatch } from "@/app/Labs/store";
 
-export default function CounterReduxComponent() {
+export default function CounterRedux() {
   const count = useSelector((state: RootState) => state.counter.count);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -12,19 +12,14 @@ export default function CounterReduxComponent() {
     <div id="wd-counter-redux">
       <h2>Counter Redux</h2>
       <h3>{count}</h3>
-      <button
-        onClick={() => dispatch(increment())}
-        id="wd-counter-redux-increment-click"
-      >
+      <button onClick={() => dispatch(increment())} id="wd-counter-redux-increment-click">
         Increment
       </button>
-      <button
-        onClick={() => dispatch(decrement())}
-        id="wd-counter-redux-decrement-click"
-      >
+      <button onClick={() => dispatch(decrement())} id="wd-counter-redux-decrement-click">
         Decrement
       </button>
       <hr />
     </div>
   );
 }
+
