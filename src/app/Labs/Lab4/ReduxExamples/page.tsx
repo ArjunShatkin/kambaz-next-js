@@ -5,7 +5,7 @@ import { Provider, useSelector } from "react-redux";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { store, RootState } from "../../store";
 import HelloRedux from "./HelloRedux/page";
-import CounterRedux from "./CounterRedux/page";
+import CounterRedux from "./CounterRedux/CounterReduxComponent";
 import AddRedux from "./AddRedux/page";
 
 export default function ReduxExamples() {
