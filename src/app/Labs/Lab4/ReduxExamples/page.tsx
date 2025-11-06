@@ -5,7 +5,7 @@ import { Provider, useSelector } from "react-redux";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { store, RootState } from "../../store";
 import HelloRedux from "./HelloRedux/page";
-import CounterRedux from "./CounterRedux/CounterReduxComponent";
+import CounterReduxComponent from "./CounterRedux/page";
 import AddRedux from "./AddRedux/page";
 
 export default function ReduxExamples() {
@@ -34,7 +34,7 @@ function ReduxExamplesContent() {
 
       {/* Existing Redux example components */}
       <HelloRedux />
-      <CounterRedux />
+      <CounterReduxComponent />
       <AddRedux />
       <h2> Todo List in Lab 3 </h2>
     </div>
