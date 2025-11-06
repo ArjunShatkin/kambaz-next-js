@@ -1,45 +1,13 @@
 "use client";
 
-import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
-import { add } from "./addReducer";
-import type { RootState, AppDispatch } from "@/app/Labs/store";
-import { FormControl, Button } from "react-bootstrap";
+import { Provider } from "react-redux";
+import { store } from "@/app/Labs/store";
+import AddRedux from "./AddRedux"; // your actual component with inputs
 
-export default function AddRedux() {
-  const [a, setA] = useState(12);
-  const [b, setB] = useState(23);
-
-  const sum = useSelector((state: RootState) => state.add.sum);
-  const dispatch = useDispatch<AppDispatch>();
-
+export default function AddReduxPage() {
   return (
-    <div className="w-25" id="wd-add-redux">
-      <h1>Add Redux</h1>
-      <h2>
-        {a} + {b} = {sum}
-      </h2>
-
-      <FormControl
-        type="number"
-        value={a}
-        onChange={(e) => setA(parseInt(e.target.value))}
-        className="mb-2"
-      />
-
-      <FormControl
-        type="number"
-        value={b}
-        onChange={(e) => setB(parseInt(e.target.value))}
-        className="mb-2"
-      />
-
-      <Button id="wd-add-redux-click" onClick={() => dispatch(add({ a, b }))}>
-        Add Redux
-      </Button>
-
-      <hr />
-    </div>
+    <Provider store={store}>
+      <AddRedux />
+    </Provider>
   );
 }
-
