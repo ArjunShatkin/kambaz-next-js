@@ -24,18 +24,17 @@ export default function AddRedux() {
         type="number"
         value={a}
         onChange={(e) => setA(parseInt(e.target.value))}
+        className="mb-2"
       />
 
       <FormControl
         type="number"
         value={b}
         onChange={(e) => setB(parseInt(e.target.value))}
+        className="mb-2"
       />
 
-      <Button
-        id="wd-add-redux-click"
-        onClick={() => dispatch(add({ a, b }))}
-      >
+      <Button id="wd-add-redux-click" onClick={() => dispatch(add({ a, b }))}>
         Add Redux
       </Button>
 
@@ -43,3 +42,4 @@ export default function AddRedux() {
     </div>
   );
 }
+
