@@ -1,24 +1,39 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { FormControl, Button } from "react-bootstrap";
 import * as client from "./client";
 
 export default function WorkingWithObjectsAsynchronously() {
-  const [assignment, setAssignment] = useState<client.Assignment>({
+  // Default empty assignment
+  const defaultAssignment: client.Assignment = {
     id: "",
     title: "",
     description: "",
     due: "",
     completed: false,
-  });
-
-  const fetchAssignment = async () => {
-    const assignmentFromServer = await client.fetchAssignment();
-    setAssignment(assignmentFromServer);
   };
 
-  const updateTitle = async (title: string) => {
-    const updatedAssignment = await client.updateTitle(title);
-    setAssignment(updatedAssignment);
+  const [assignment, setAssignment] = useState<client.Assignment>(
+    defaultAssignment
+  );
+
+  // Fetch assignment on component load
+  const fetchAssignment = async () => {
+    const data = await client.fetchAssignment();
+    setAssignment(data);
+  };
+
+  // Update assignment title
+  const updateTitle = async () => {
+    const updated = await client.updateTitle(assignment.title);
+    setAssignment(updated);
+  };
+
+  // Update assignment description
+  const updateDescription = async () => {
+    const updated = await client.updateDescription(assignment.description);
+    setAssignment(updated);
   };
 
   useEffect(() => {
@@ -31,6 +46,7 @@ export default function WorkingWithObjectsAsynchronously() {
 
       <h4>Assignment</h4>
 
+      {/* Title input and update */}
       <FormControl
         defaultValue={assignment.title}
         className="mb-2"
@@ -38,13 +54,11 @@ export default function WorkingWithObjectsAsynchronously() {
           setAssignment({ ...assignment, title: e.target.value })
         }
       />
-      <Button
-        className="btn btn-primary mb-2"
-        onClick={() => updateTitle(assignment.title)}
-      >
+      <Button className="btn btn-primary mb-2" onClick={updateTitle}>
         Update Title
       </Button>
 
+      {/* Description input and update */}
       <FormControl
         as="textarea"
         rows={3}
@@ -54,16 +68,19 @@ export default function WorkingWithObjectsAsynchronously() {
           setAssignment({ ...assignment, description: e.target.value })
         }
       />
+      <Button className="btn btn-secondary mb-2" onClick={updateDescription}>
+        Update Description
+      </Button>
 
+      {/* Due date */}
       <FormControl
         type="date"
         className="mb-2"
-        defaultValue={assignment.due}
-        onChange={(e) =>
-          setAssignment({ ...assignment, due: e.target.value })
-        }
+        value={assignment.due}
+        onChange={(e) => setAssignment({ ...assignment, due: e.target.value })}
       />
 
+      {/* Completed checkbox */}
       <div className="form-check form-switch mb-2">
         <input
           className="form-check-input"
@@ -79,6 +96,7 @@ export default function WorkingWithObjectsAsynchronously() {
         </label>
       </div>
 
+      {/* Display current assignment */}
       <pre>{JSON.stringify(assignment, null, 2)}</pre>
       <hr />
     </div>
