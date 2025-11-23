@@ -1,19 +1,23 @@
 "use client";
 
 import React, { useState } from "react";
-import { FormControl } from "react-bootstrap";
-
-const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
+import { FormControl, Button } from "react-bootstrap";
+import * as client from "./client";
 
 export default function WorkingWithArrays() {
-  const API = `${HTTP_SERVER}/lab5/todos`;
-  const [todo, setTodo] = useState({
-    id: "1",
+  const API = `${process.env.NEXT_PUBLIC_HTTP_SERVER}/lab5/todos`;
+  const [todo, setTodo] = useState<client.Todo>({
+    id: 1,
     title: "NodeJS Assignment",
     description: "Create a NodeJS server with ExpressJS",
     due: "2021-09-09",
     completed: false,
   });
+
+  const postTodo = async () => {
+    const newTodo = await client.postNewTodo(todo);
+    setTodo(newTodo);
+  };
 
   return (
     <div id="wd-working-with-arrays">
@@ -33,8 +37,8 @@ export default function WorkingWithArrays() {
           id="wd-todo-id"
           className="w-50 me-2"
           type="number"
-          defaultValue={todo.id}
-          onChange={(e) => setTodo({ ...todo, id: e.target.value })}
+          value={todo.id}
+          onChange={(e) => setTodo({ ...todo, id: parseInt(e.target.value) })}
         />
         <a
           id="wd-retrieve-todo-by-id"
@@ -61,11 +65,59 @@ export default function WorkingWithArrays() {
       <h3>Creating New Items in an Array</h3>
       <a
         id="wd-create-todo"
-        className="btn btn-success"
+        className="btn btn-success me-2"
         href={`${API}/create`}
       >
         Create Todo
       </a>
+      <hr />
+
+      {/* POST new todo */}
+      <h3>Creating New Items in an Array Using POST</h3>
+      <div className="mb-2">
+        <FormControl
+          className="mb-2"
+          value={todo.title}
+          onChange={(e) => setTodo({ ...todo, title: e.target.value })}
+          placeholder="Title"
+        />
+        <FormControl
+          className="mb-2"
+          as="textarea"
+          rows={3}
+          value={todo.description || ""}
+          onChange={(e) => setTodo({ ...todo, description: e.target.value })}
+          placeholder="Description"
+        />
+        <FormControl
+          className="mb-2"
+          type="date"
+          value={todo.due}
+          onChange={(e) => setTodo({ ...todo, due: e.target.value })}
+        />
+        <div className="form-check mb-2">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            checked={todo.completed}
+            onChange={(e) => setTodo({ ...todo, completed: e.target.checked })}
+            id="wd-post-todo-completed"
+          />
+          <label
+            className="form-check-label"
+            htmlFor="wd-post-todo-completed"
+          >
+            Completed
+          </label>
+        </div>
+        <Button
+          id="wd-post-todo"
+          className="btn btn-success"
+          onClick={postTodo}
+        >
+          Post Todo
+        </Button>
+      </div>
       <hr />
 
       {/* Remove todo */}
@@ -73,8 +125,9 @@ export default function WorkingWithArrays() {
       <div className="d-flex mb-2">
         <FormControl
           className="w-50 me-2"
-          defaultValue={todo.id}
-          onChange={(e) => setTodo({ ...todo, id: e.target.value })}
+          type="number"
+          value={todo.id}
+          onChange={(e) => setTodo({ ...todo, id: parseInt(e.target.value) })}
         />
         <a
           id="wd-remove-todo"
@@ -91,12 +144,13 @@ export default function WorkingWithArrays() {
       <div className="d-flex mb-2">
         <FormControl
           className="w-25 me-2"
-          defaultValue={todo.id}
-          onChange={(e) => setTodo({ ...todo, id: e.target.value })}
+          type="number"
+          value={todo.id}
+          onChange={(e) => setTodo({ ...todo, id: parseInt(e.target.value) })}
         />
         <FormControl
           className="w-50 me-2"
-          defaultValue={todo.title}
+          value={todo.title}
           onChange={(e) => setTodo({ ...todo, title: e.target.value })}
         />
         <a
@@ -116,7 +170,7 @@ export default function WorkingWithArrays() {
           type="number"
           className="w-25 me-2"
           value={todo.id}
-          onChange={(e) => setTodo({ ...todo, id: e.target.value })}
+          onChange={(e) => setTodo({ ...todo, id: parseInt(e.target.value) })}
         />
         <div className="form-check me-2">
           <input
@@ -150,7 +204,7 @@ export default function WorkingWithArrays() {
           type="number"
           className="w-25 me-2"
           value={todo.id}
-          onChange={(e) => setTodo({ ...todo, id: e.target.value })}
+          onChange={(e) => setTodo({ ...todo, id: parseInt(e.target.value) })}
         />
         <FormControl
           className="w-50 me-2"
@@ -162,7 +216,7 @@ export default function WorkingWithArrays() {
           id="wd-update-todo-description"
           className="btn btn-warning"
           href={`${API}/${todo.id}/description/${encodeURIComponent(
-            todo.description
+            todo.description || ""
           )}`}
         >
           Update Description
@@ -172,4 +226,3 @@ export default function WorkingWithArrays() {
     </div>
   );
 }
-
