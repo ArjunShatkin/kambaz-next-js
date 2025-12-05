@@ -5,7 +5,7 @@ export default function AccountLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <div id="wd-kambaz">
+    <div id="wd-account">  {/* Changed from wd-kambaz */}
       <table>
         <tbody>
           <tr>
