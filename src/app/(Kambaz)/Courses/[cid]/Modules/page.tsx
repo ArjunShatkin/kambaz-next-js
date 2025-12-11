@@ -7,17 +7,21 @@ import { BsGripVertical, BsCheck } from "react-icons/bs";
 import ModulesControls from "./ModuleControls";
 import ModuleControlButtons from "./ModuleControlsButton";
 import LessonControlButtons from "./LessonControlsButton";
-import { courses as allCourses, modules as allModules } from "../../../Database";
+import * as coursesClient from "../../client";
+import * as modulesClient from "./client";
 
 type Lesson = {
-  _id: string;
+  _id?: string;
   name: string;
+  description?: string;
+  module: string;
 };
 
 type Module = {
-  _id: string;
-  course: string; // course id
+  _id?: string;
+  course: string;
   name: string;
+  description?: string;
   lessons?: Lesson[];
 };
 
@@ -32,44 +36,70 @@ export default function Modules() {
 
   const [courseModules, setCourseModules] = useState<Module[]>([]);
   const [course, setCourse] = useState<Course | null>(null);
-  const [moduleName, setModuleName] = useState<string>(""); // for adding new modules
-  const [editingModuleId, setEditingModuleId] = useState<string | null>(null); // track which module is being edited
+  const [moduleName, setModuleName] = useState<string>("");
+  const [editingModuleId, setEditingModuleId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const foundCourse = allCourses.find((c) => c._id === courseId);
-    setCourse(foundCourse || null);
-
-    const filteredModules = allModules.filter((m) => m.course === courseId);
-    setCourseModules(filteredModules);
+    loadData();
   }, [courseId]);
 
-  if (!course) return <p>Course not found</p>;
+  const loadData = async () => {
+    try {
+      const [fetchedCourse, fetchedModules] = await Promise.all([
+        coursesClient.getCourse(courseId!),
+        modulesClient.getModulesForCourse(courseId!)
+      ]);
+      setCourse(fetchedCourse);
+      setCourseModules(fetchedModules);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error loading data:", error);
+      setLoading(false);
+    }
+  };
 
-  // Add new module
-  const addModule = () => {
+  const addModule = async () => {
     if (!moduleName.trim()) return;
-    const newModule: Module = {
-      _id: Date.now().toString(),
-      course: courseId!,
-      name: moduleName,
-      lessons: [],
-    };
-    setCourseModules([...courseModules, newModule]);
-    setModuleName("");
+    try {
+      const newModule = await modulesClient.createModule(courseId!, {
+        name: moduleName,
+        course: courseId!,
+        lessons: []
+      });
+      setCourseModules([...courseModules, newModule]);
+      setModuleName("");
+    } catch (error) {
+      console.error("Error adding module:", error);
+    }
   };
 
-  // Delete a module
-  const deleteModule = (moduleId: string) => {
-    setCourseModules(courseModules.filter((m) => m._id !== moduleId));
+  const deleteModule = async (moduleId: string) => {
+    try {
+      await modulesClient.deleteModule(moduleId);
+      setCourseModules(courseModules.filter((m) => m._id !== moduleId));
+    } catch (error) {
+      console.error("Error deleting module:", error);
+    }
   };
 
-  // Update module name
-  const updateModuleName = (moduleId: string, newName: string) => {
-    setCourseModules(
-      courseModules.map((m) => (m._id === moduleId ? { ...m, name: newName } : m))
-    );
-    setEditingModuleId(null);
+  const updateModuleName = async (moduleId: string, newName: string) => {
+    try {
+      const moduleToUpdate = courseModules.find(m => m._id === moduleId);
+      if (!moduleToUpdate) return;
+      
+      await modulesClient.updateModule(moduleId, { ...moduleToUpdate, name: newName });
+      setCourseModules(
+        courseModules.map((m) => (m._id === moduleId ? { ...m, name: newName } : m))
+      );
+      setEditingModuleId(null);
+    } catch (error) {
+      console.error("Error updating module:", error);
+    }
   };
+
+  if (loading) return <div className="p-4">Loading modules...</div>;
+  if (!course) return <p>Course not found</p>;
 
   return (
     <div>
@@ -113,36 +143,32 @@ export default function Modules() {
               </span>
 
               <div className="d-flex align-items-center ms-2">
-                {/* Keep previous icons */}
                 <ModuleControlButtons />
 
-                {/* Green checkmark only */}
                 {editingModuleId === module._id && (
                   <Button
                     variant="success"
                     size="sm"
                     className="me-2"
-                    onClick={() => updateModuleName(module._id, module.name)}
+                    onClick={() => updateModuleName(module._id!, module.name)}
                   >
                     <BsCheck />
                   </Button>
                 )}
 
-                {/* Edit button */}
                 <Button
                   variant="warning"
                   size="sm"
-                  onClick={() => setEditingModuleId(module._id)}
+                  onClick={() => setEditingModuleId(module._id!)}
                 >
                   Edit
                 </Button>
 
-                {/* Delete button */}
                 <Button
                   variant="danger"
                   size="sm"
                   className="ms-2"
-                  onClick={() => deleteModule(module._id)}
+                  onClick={() => deleteModule(module._id!)}
                 >
                   Delete
                 </Button>

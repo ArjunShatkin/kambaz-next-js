@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Row,
@@ -13,10 +13,10 @@ import {
   Button,
   FormControl,
 } from "react-bootstrap";
-import * as db from "../Database";
+import * as coursesClient from "../Courses/client";
 
 interface Course {
-  _id: string;
+  _id?: string;
   name: string;
   number: string;
   startDate: string;
@@ -28,10 +28,10 @@ interface Course {
 }
 
 export default function Dashboard() {
-  const [courses, setCourses] = useState<Course[]>(db.courses);
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const [courseForm, setCourseForm] = useState<Course>({
-    _id: "0",
     name: "New Course",
     number: "New Number",
     startDate: "2023-09-10",
@@ -41,26 +41,75 @@ export default function Dashboard() {
     description: "New Description",
   });
 
-  const addNewCourse = () => {
-    const newCourse = { ...courseForm, _id: Date.now().toString() };
-    setCourses([...courses, newCourse]);
-    setCourseForm({ ...courseForm, name: "New Course", description: "New Description" });
+  // Fetch courses from MongoDB on mount
+  useEffect(() => {
+    loadCourses();
+  }, []);
+
+  const loadCourses = async () => {
+    try {
+      const fetchedCourses = await coursesClient.getAllCourses();
+      setCourses(fetchedCourses);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error loading courses:", error);
+      setLoading(false);
+    }
   };
 
-  const updateCourse = () => {
-    setCourses(
-      courses.map((c) => (c._id === courseForm._id ? courseForm : c))
-    );
-    setCourseForm({ ...courseForm, name: "New Course", description: "New Description" });
+  const addNewCourse = async () => {
+    try {
+      const newCourse = await coursesClient.createCourse(courseForm);
+      setCourses([...courses, newCourse]);
+      setCourseForm({ 
+        name: "New Course", 
+        number: "New Number",
+        startDate: "2023-09-10",
+        endDate: "2023-12-15",
+        department: "D000",
+        credits: 0,
+        description: "New Description" 
+      });
+    } catch (error) {
+      console.error("Error creating course:", error);
+    }
   };
 
-  const deleteCourse = (id: string) => {
-    setCourses(courses.filter((c) => c._id !== id));
+  const updateCourse = async () => {
+    if (!courseForm._id) return;
+    try {
+      const updated = await coursesClient.updateCourse(courseForm._id, courseForm);
+      setCourses(courses.map((c) => (c._id === updated._id ? updated : c)));
+      setCourseForm({ 
+        name: "New Course", 
+        number: "New Number",
+        startDate: "2023-09-10",
+        endDate: "2023-12-15",
+        department: "D000",
+        credits: 0,
+        description: "New Description" 
+      });
+    } catch (error) {
+      console.error("Error updating course:", error);
+    }
+  };
+
+  const deleteCourse = async (id: string) => {
+    try {
+      await coursesClient.deleteCourse(id);
+      setCourses(courses.filter((c) => c._id !== id));
+    } catch (error) {
+      console.error("Error deleting course:", error);
+    }
   };
 
   const editCourse = (course: Course) => {
     setCourseForm(course);
   };
+
+  if (loading) {
+    return <div className="p-4">Loading courses...</div>;
+  }
 
   return (
     <div id="wd-dashboard" className="p-4">
@@ -149,7 +198,7 @@ export default function Dashboard() {
                   </Button>
                   <Button
                     variant="danger"
-                    onClick={() => deleteCourse(course._id)}
+                    onClick={() => deleteCourse(course._id!)}
                     id={`wd-delete-course-${course._id}`}
                   >
                     Delete

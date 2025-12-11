@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { FaUserCircle } from "react-icons/fa";
-import * as db from "@/app/(Kambaz)/Database";
+import * as enrollmentsClient from "./client";
 
 interface User {
   _id: string;
@@ -12,35 +12,37 @@ interface User {
   firstName: string;
   lastName: string;
   email: string;
-  dob: string;
+  dob?: string;
   role: string;
-  loginId: string;
-  section: string;
-  lastActivity: string;
-  totalActivity: string;
-}
-
-interface Enrollment {
-  _id: string;
-  user: string;
-  course: string;
+  loginId?: string;
+  section?: string;
+  lastActivity?: string;
+  totalActivity?: string;
 }
 
 export default function PeopleTable() {
   const params = useParams();
   const cid = Array.isArray(params?.cid) ? params.cid[0] : params?.cid;
+  const [enrolledUsers, setEnrolledUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const { users, enrollments } = db as {
-    users: User[];
-    enrollments: Enrollment[];
+  useEffect(() => {
+    loadEnrolledUsers();
+  }, [cid]);
+
+  const loadEnrolledUsers = async () => {
+    try {
+      const users = await enrollmentsClient.getUsersForCourse(cid!);
+      setEnrolledUsers(users);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error loading enrolled users:", error);
+      setLoading(false);
+    }
   };
 
-  // Filter users enrolled in the current course
-  const enrolledUsers = users.filter((user) =>
-    enrollments.some(
-      (enrollment) => enrollment.user === user._id && enrollment.course === cid
-    )
-  );
+  if (loading) return <div className="p-4">Loading people...</div>;
+  if (!enrolledUsers.length) return <div className="p-4">No users enrolled in this course.</div>;
 
   return (
     <div id="wd-people-table" className="table-responsive">
@@ -63,11 +65,11 @@ export default function PeopleTable() {
                 <span className="wd-first-name">{user.firstName}</span>{" "}
                 <span className="wd-last-name">{user.lastName}</span>
               </td>
-              <td className="wd-login-id">{user.loginId}</td>
-              <td className="wd-section">{user.section}</td>
+              <td className="wd-login-id">{user.loginId || 'N/A'}</td>
+              <td className="wd-section">{user.section || 'N/A'}</td>
               <td className="wd-role">{user.role}</td>
-              <td className="wd-last-activity">{user.lastActivity}</td>
-              <td className="wd-total-activity">{user.totalActivity}</td>
+              <td className="wd-last-activity">{user.lastActivity || 'N/A'}</td>
+              <td className="wd-total-activity">{user.totalActivity || 'N/A'}</td>
             </tr>
           ))}
         </tbody>
